@@ -1,4 +1,4 @@
-import apiQuery from '../../api/apiQuery'
+import { apiQuery } from '../../api/apiQuery'
 
 const SAVE_AVAILABLE_KEYS = 'SAVE_AVAILABLE_KEYS';
 const SWITCH_BASE = 'SWITCH_BASE';

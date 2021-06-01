@@ -17,33 +17,34 @@ import {
 function Exchanger() {
 
   const store = useSelector((state) => state);
+  const {rates, target, base, baseValue, targetValue} = store;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    saveAvailableKeysAndRatesQuery()(dispatch);
+    dispatch(saveAvailableKeysAndRatesQuery());
   }, [dispatch]);
 
   const baseDropHandler = (e) => {
-    saveRatesOfBaseQuery(e.target.value)(dispatch)
+    dispatch(saveRatesOfBaseQuery(e.target.value));
     dispatch(switchBase(e.target.value));
-    resetBaseAndTargetValues()(dispatch);
+    dispatch(resetBaseAndTargetValues());
   }
 
   const targetDropHandler = (e) => {
     dispatch(switchTarget(e.target.value));
-    resetBaseAndTargetValues()(dispatch);
+    dispatch(resetBaseAndTargetValues());
   }
 
   const baseInputHandler = (e) => {
     dispatch(changeBaseValue(e.target.value))
-    const exchangedValue = e.target.value * store.rates[store.target];
+    const exchangedValue = e.target.value * rates[target];
     dispatch(changeTargetValue(exchangedValue.toFixed(3)))
   }
 
   const targetInputHandler = (e) => {
     dispatch(changeTargetValue(e.target.value))
-    const exchangedValue = e.target.value / store.rates[store.target];
+    const exchangedValue = e.target.value / rates[target];
     dispatch(changeBaseValue(exchangedValue.toFixed(3)))
   } 
 
@@ -55,12 +56,12 @@ function Exchanger() {
         <h1 className={styles.heading}>Currency exchange</h1>
 
         <div className={styles.dropsContainer}>
-          <Dropdown handler={baseDropHandler} value={store.base} label='Base currency:'/>
-          <Dropdown handler={targetDropHandler} value={store.target} label='Convert to:'/>
+          <Dropdown handler={baseDropHandler} value={base} label='Base currency:'/>
+          <Dropdown handler={targetDropHandler} value={target} label='Convert to:'/>
         </div>
 
-        { store.rates &&
-          <div>Currency rate: {store.rates[store.target].toFixed(3)}</div>
+        { rates &&
+          <div>Currency rate: {rates[target].toFixed(3)}</div>
         }
 
         <div className={styles.buttonsContainer}>
@@ -68,8 +69,8 @@ function Exchanger() {
           <button className={styles.button}>Sell</button>
         </div>
 
-        <Input handler={baseInputHandler} value={store.baseValue} label={`You will give the next amount of ${store.base}`} current={store.rates} />
-        <Input value={store.targetValue} handler={targetInputHandler} label={`You will get the next amount of ${store.target}`} />
+        <Input handler={baseInputHandler} value={baseValue} label={`You will give the next amount of ${base}`} current={rates} />
+        <Input value={targetValue} handler={targetInputHandler} label={`You will get the next amount of ${target}`} />
 
       </div>
 
