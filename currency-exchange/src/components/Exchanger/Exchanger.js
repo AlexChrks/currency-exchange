@@ -5,23 +5,29 @@ import Input from '../Input/Input';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  switchBase, 
-  switchTarget, 
-  changeBaseValue, 
-  changeTargetValue, 
-  saveAvailableKeysAndRatesQuery, 
-  saveRatesOfBaseQuery, 
-  resetBaseAndTargetValues 
+  switchBase,
+  switchTarget,
+  changeBaseValue,
+  changeTargetValue,
+  saveAvailableKeysAndRatesQuery,
+  saveRatesOfBaseQuery,
+  resetBaseAndTargetValues
 } from '../../store/actions/actions';
 
 function Exchanger() {
 
   const store = useSelector((state) => state);
 
+  // const {rates, target, base, baseValue, targetValue} = store
+  // используй деструктуризацию
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     saveAvailableKeysAndRatesQuery()(dispatch);
+  //  диспатч не нужно передавать параметром, он подставляется под капотом
+  //  можно просто диспатчить санку
+    // dispatch(saveAvailableKeysAndRatesQuery())
   }, [dispatch]);
 
   const baseDropHandler = (e) => {
@@ -45,7 +51,7 @@ function Exchanger() {
     dispatch(changeTargetValue(e.target.value))
     const exchangedValue = e.target.value / store.rates[store.target];
     dispatch(changeBaseValue(exchangedValue.toFixed(3)))
-  } 
+  }
 
   return (
     <div className={styles.globalWrapper}>

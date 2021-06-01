@@ -12,8 +12,9 @@ const store = createStore(reducer, applyMiddleware(thunk));
 function App() {
   return (
     <Provider store={store}>
+        //это лучше вынести в индекс файл что бы все обертки были в одном месте
       <Exchanger />
-    </Provider> 
+    </Provider>
   );
 }
 

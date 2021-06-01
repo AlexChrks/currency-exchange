@@ -1,4 +1,4 @@
-import apiQuery from '../../api/apiQuery'
+import {apiQuery} from "../../api/apiQuery";
 
 const SAVE_AVAILABLE_KEYS = 'SAVE_AVAILABLE_KEYS';
 const SWITCH_BASE = 'SWITCH_BASE';
@@ -6,6 +6,12 @@ const SWITCH_TARGET = 'SWITCH_TARGET';
 const SAVE_RATES_OF_BASE = 'SAVE_RATES_OF_BASE';
 const CHANGE_BASE_VALUE = 'CHANGE_BASE_VALUE';
 const CHANGE_TARGET_VALUE = 'CHANGE_TARGET_VALUE';
+
+//Если будет несколько редьюсеров есть смысл типы объединить в один объект
+// const TYPES = {
+//   SAVE_AVAILABLE_KEYS:'SAVE_AVAILABLE_KEYS',
+//   SWITCH_BASE: 'SWITCH_BASE'
+// }
 
 export function saveAvailableKeys(data) {
   return {
@@ -21,6 +27,7 @@ export function saveAvailableKeysAndRatesQuery() {
       dispatch(saveAvailableKeys(keys));
       dispatch(saveRatesOfBase(data.rates));
       console.log(data)
+    //  логи в коммитах это плохо
     })
   };
 }
@@ -31,6 +38,14 @@ export function switchBase(base) {
     payload: base
   }
 }
+
+// export function switchBase(payload) {
+//   return {
+//     type: SWITCH_BASE,
+//     payload
+//   }
+// }
+// можно сделать так, съэкономит пару символов
 
 export function switchTarget(target) {
   return {

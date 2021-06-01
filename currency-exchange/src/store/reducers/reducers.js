@@ -10,6 +10,7 @@ const initialState = {
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case 'SAVE_AVAILABLE_KEYS':
+      //У тебя же есть константы для типов, использование строк плохая практика
       return {
         ...state,
         availableKeys: [...action.payload]
@@ -23,7 +24,7 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         target: action.payload,
-      }  
+      }
     case 'SAVE_RATES_OF_BASE':
       return {
         ...state,
@@ -38,7 +39,7 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         targetValue: action.payload,
-      }          
+      }
     default:
       return state;
   }
